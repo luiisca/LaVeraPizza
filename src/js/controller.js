@@ -1,6 +1,8 @@
 "use strict";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import OverlayScrollbars from "overlayscrollbars";
+import "../css/OverlayScrollbars.css";
 
 import homeView from "./views/homeView.js";
 import orderView from "./views/orderView.js";
@@ -19,6 +21,7 @@ const controlHomeView = function () {
   homeView.render();
   View.viewInstance.scrollTop();
   View.viewInstance.mainBtnHandlers();
+  View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlOrderView = function () {
@@ -26,18 +29,22 @@ const controlOrderView = function () {
   View.viewInstance.scrollTop();
   updateBtns.updateLogoBtn(controlHomeView);
   model.initMap();
+  // Testing scrollbar update
+  View.viewInstance.changeScrollBarTheme("dark");
 };
 
 const controlMenuView = function () {
   menuView.render();
   View.viewInstance.scrollTop();
   updateBtns.updateLogoBtn(controlHomeView);
+  View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlAboutView = function () {
   aboutView.render();
   View.viewInstance.scrollTop();
   updateBtns.updateLogoBtn(controlHomeView);
+  View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlViews = [controlOrderView, controlMenuView, controlAboutView];
@@ -45,8 +52,8 @@ console.log(View.viewInstance, aboutView);
 
 const init = function () {
   View.viewInstance.mainBtnHandlers(controlViews);
-
   hamMenuView.addHandlerCloseHamMenu();
+  View.viewInstance.changeScrollBarTheme("light");
 };
 init();
 
@@ -160,8 +167,4 @@ window.addEventListener("load", function () {
   views.forEach((key, fn) => {
     if (key === id) fn();
   });
-  //compare id with name property on each view, if true then stick to that view and execute its controlView function
 });
-// 1 Use load eventlistener, the calback should compare the hash with some array where all the views' names are
-// 2 If find some coincidence it should run the function related to it.
-console.log("hola");

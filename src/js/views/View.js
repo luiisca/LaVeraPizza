@@ -46,6 +46,16 @@ export class View {
   #updateUrl() {
     window.location.hash = this.name;
   }
+
+  // Scroll customization
+  changeScrollBarTheme(theme) {
+    OverlayScrollbars(this.body, {
+      className: `os-theme-${theme}`,
+      scrollbars: {
+        autoHide: "scroll",
+      },
+    });
+  }
 }
 
 export const viewInstance = new View();
