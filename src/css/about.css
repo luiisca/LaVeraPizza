@@ -1,0 +1,130 @@
+/* title */
+.about-info__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.about-info-section {
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
+  padding: clamp(36px, 5vw, 50px) clamp(36px, 10vw, 100px);
+  font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
+  font-weight: 700;
+}
+.about-info-section h1 {
+  grid-column: 1 / span 2;
+  font-size: clamp(40px, 5vw, 80px);
+  font-weight: 700;
+  font-family: 'Poiret One', display;
+  letter-spacing: 12px;
+  color: var(--white);
+
+  padding: 30px 0;
+  padding-bottom: 60px;
+}
+
+/* video */
+.iframe-flex {
+  grid-column: 1 / span 2;
+  width: clamp(200px, 100%, 1000px);
+  display: flex;
+  justify-content: center;
+}
+.iframe-container {
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* since container */
+.since-container .since__text {
+  margin-top: clamp(20px, 3vh, 40px);
+  margin-bottom: clamp(20px, 3vh, 40px);
+  padding: 60px;
+
+  color: black;
+  background-color: var(--yellow);
+
+  font-size: clamp(16px, 2vw, 24px);
+  line-height: 1.8em;
+}
+.since-container .since__text span {
+  font-size: clamp(26px, 5vw, 48px);
+}
+
+/* history container */
+
+.history-container h2 {
+  font-size: clamp(19px, 5vw, 35px);
+  letter-spacing: 6px;
+  margin-bottom: 25px;
+}
+.history-container p {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 500;
+  font-family: 'Abhaya Libre', Georgia, 'Times New Roman', serif;
+  line-height: 28px;
+}
+
+@media (min-width: 280px) and (orientation: portrait) {
+  .about-info__container .logo, .about-info__container .clickable-logo {
+    top: 0;
+    left: 0;
+  }
+  .about-info-section {
+    padding-top: clamp(50px, 10vh, 100px);
+  }
+}
+
+@media (max-width: 980px) {
+  .about-container {
+    display: block;
+  }
+  .since-container .since__text {
+    padding: 30px 20px;
+  }
+  .since-container img {
+    display: none;
+  }
+}
+
+@media (min-width: 981px) {
+  /* about section */
+  .about-info-section {
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    position: relative;
+  }
+  /* since container */
+  .since-container {
+    position: relative;
+  }
+  .since-container .since__text {
+    width: 100%;
+    position: absolute;
+    top: -10vh;
+    z-index: 1;
+  }
+  .since-container img {
+    position: absolute;
+    width: 100%;
+    top: clamp(45px, 10vh, 90px);
+    z-index: -1;
+  }
+  /* history container */
+  .history-container {
+    position: relative;
+    top: 20px;
+    left: 40px;
+  }
+}

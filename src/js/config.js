@@ -1,0 +1,4 @@
+export const BUSINESSLOCATION = {
+  lat: -9.122253649985707,
+  lng: -78.52881618909174,
+};
