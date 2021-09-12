@@ -8,6 +8,7 @@ import logo from "../../Images/logo.jpg";
 import facebookIcon from "../../Images/facebook.png";
 import instagramIcon from "../../Images/instagram.png";
 import youtubeIcon from "../../Images/logo-youtube.png";
+import mapsCar from "../../Images/drive_black.png";
 
 class orderView extends View.View {
   name = "order";
@@ -37,7 +38,7 @@ class orderView extends View.View {
 			id="map" class="order__map"></div>
 			<div id="content">
 				<div class="topContent">
-					<!-- <img src="drive_black.png" alt="" /> -->
+					<img src=${mapsCar} alt="" /> 
 					<p class="duration"></p>
 				</div>
 				<p class="distance"></p>
