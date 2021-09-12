@@ -17,6 +17,7 @@
 body {
   color: white;
   font-family: "Open Sans", sans-serif;
+  scroll-behavior: smooth;
 }
 a {
   color: inherit;

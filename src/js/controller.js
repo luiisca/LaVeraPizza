@@ -21,7 +21,7 @@ const controlHomeView = function () {
   homeView.render();
   View.viewInstance.scrollTop();
   View.viewInstance.mainBtnHandlers();
-  View.viewInstance.changeScrollBarTheme("light");
+  // View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlOrderView = function () {
@@ -30,21 +30,21 @@ const controlOrderView = function () {
   updateBtns.updateLogoBtn(controlHomeView);
   model.initMap();
   // Testing scrollbar update
-  View.viewInstance.changeScrollBarTheme("dark");
+  // View.viewInstance.changeScrollBarTheme("dark");
 };
 
 const controlMenuView = function () {
   menuView.render();
   View.viewInstance.scrollTop();
   updateBtns.updateLogoBtn(controlHomeView);
-  View.viewInstance.changeScrollBarTheme("light");
+  // View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlAboutView = function () {
   aboutView.render();
   View.viewInstance.scrollTop();
   updateBtns.updateLogoBtn(controlHomeView);
-  View.viewInstance.changeScrollBarTheme("light");
+  // View.viewInstance.changeScrollBarTheme("light");
 };
 
 const controlViews = [controlOrderView, controlMenuView, controlAboutView];
@@ -53,7 +53,7 @@ console.log(View.viewInstance, aboutView);
 const init = function () {
   View.viewInstance.mainBtnHandlers(controlViews);
   hamMenuView.addHandlerCloseHamMenu();
-  View.viewInstance.changeScrollBarTheme("light");
+  // View.viewInstance.changeScrollBarTheme("light");
 };
 init();
 
@@ -87,17 +87,73 @@ const logDebounce = debounce(function (msg) {
   console.log(msg);
 });
 
+window.addEventListener("hashchange", function () {
+  console.log("holaHash");
+  console.log(window.URL);
+  id = window.location.hash.slice(1);
+  console.log(id);
+});
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+// ON load identify the hash and based on that render the corresponding view.
+const views = new Map([
+  [controlOrderView, "order"],
+  [controlMenuView, "menu"],
+  [controlAboutView, "about"],
+  [controlHomeView, "home"],
+]);
+
+window.addEventListener("load", function () {
+  const id = window.location.hash.slice(1);
+  console.log(id);
+  views.forEach((key, fn) => {
+    if (key === id) fn();
+  });
+  View.viewInstance.scrollTop();
+});
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+// smooth scroll
+
+// import Scrollbar from "smooth-scrollbar";
+
+// Scrollbar.init(document.querySelector("body"), {
+//   dumping: 0.08,
+//   alwaysShowTracks: false,
+// });
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+// Custom scroll
+const bodyScrollbarInstance = OverlayScrollbars(
+  document.querySelector("body"),
+  {
+    className: `os-theme-light`,
+    scrollbars: {
+      autoHide: "scroll",
+    },
+  }
+);
+
+// window.addEventListener("scroll", function () {
+// });
+// test.scroll({ y: "100% / 2" });
 const animateScroll = function () {
   logDebounce("debounced");
 
   const scrollElem = document.querySelector(".pizza-rotating");
 
-  scrollValues.push(window.scrollY);
+  scrollValues.push(bodyScrollbarInstance.scroll().position.y);
 
   const elRect = scrollElem.getBoundingClientRect();
+  // console.log(elRect);
   const elMiddHeight = elRect.height / 2;
   const newTop = elRect.y + elMiddHeight;
-  const rotationPerPixel = 6 / elMiddHeight;
+  const rotationPerPixel = 5 / elMiddHeight;
   const scrolledAmountSubstractionGuard = function () {
     let scrolledAmount = 1;
     if (scrollValues.length >= 2) {
@@ -116,7 +172,7 @@ const animateScroll = function () {
   ) {
     const totalRotation = scrolledAmountSubstractionGuard() * rotationPerPixel;
     accRotation += -totalRotation;
-    console.log(accRotation);
+    // console.log(accRotation);
     const test = scrollElem.animate(
       [{ transform: `rotate(${accRotation}deg)` }],
       {
@@ -142,29 +198,3 @@ document.addEventListener(
   },
   false
 );
-
-window.addEventListener("hashchange", function () {
-  console.log("holaHash");
-  console.log(window.URL);
-  id = window.location.hash.slice(1);
-  console.log(id);
-});
-
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-// ON load identify the hash and based on that render the corresponding view.
-const views = new Map([
-  [controlOrderView, "order"],
-  [controlMenuView, "menu"],
-  [controlAboutView, "about"],
-  [controlHomeView, "home"],
-]);
-
-window.addEventListener("load", function () {
-  const id = window.location.hash.slice(1);
-  console.log(id);
-  views.forEach((key, fn) => {
-    if (key === id) fn();
-  });
-});

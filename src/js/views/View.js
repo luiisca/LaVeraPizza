@@ -1,5 +1,5 @@
 export class View {
-  body = document.querySelector("body"); //set properties for the resulting object
+  body = document.querySelector("body");
   parentEl = document.querySelector("main");
 
   render() {
@@ -48,14 +48,9 @@ export class View {
   }
 
   // Scroll customization
-  changeScrollBarTheme(theme) {
-    OverlayScrollbars(this.body, {
-      className: `os-theme-${theme}`,
-      scrollbars: {
-        autoHide: "scroll",
-      },
-    });
-  }
+  // changeScrollBarTheme(theme) {
+
+  // }
 }
 
 export const viewInstance = new View();
