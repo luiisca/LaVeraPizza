@@ -8,14 +8,14 @@
   /* justify-content: center; */
   /* flex-wrap: wrap; */
   padding: clamp(36px, 5vw, 50px) clamp(36px, 10vw, 100px);
-  font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 700;
 }
 .about-info-section h1 {
   grid-column: 1 / span 2;
   font-size: clamp(40px, 5vw, 80px);
   font-weight: 700;
-  font-family: 'Poiret One', display;
+  font-family: "Poiret One", display;
   letter-spacing: 12px;
   color: var(--white);
 
@@ -71,15 +71,11 @@
 .history-container p {
   font-size: clamp(16px, 2vw, 18px);
   font-weight: 500;
-  font-family: 'Abhaya Libre', Georgia, 'Times New Roman', serif;
+  font-family: "Abhaya Libre", Georgia, "Times New Roman", serif;
   line-height: 28px;
 }
 
 @media (min-width: 280px) and (orientation: portrait) {
-  .about-info__container .logo, .about-info__container .clickable-logo {
-    top: 0;
-    left: 0;
-  }
   .about-info-section {
     padding-top: clamp(50px, 10vh, 100px);
   }
