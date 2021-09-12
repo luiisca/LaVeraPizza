@@ -1,8 +1,5 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-#map {
-  height: 100%;
-}
 
 /* Optional: Makes the sample page fill the window. */
 html,
@@ -32,7 +29,7 @@ body {
 
 /* popup content styles*/
 #content {
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-weight: 400;
 }
 .topContent {
@@ -66,7 +63,7 @@ body {
 
 /* This element draws the tip. */
 .popup-bubble-anchor::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

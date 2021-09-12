@@ -21,7 +21,7 @@ import instagramIcon from "../../Images/instagram.png";
 import youtubeIcon from "../../Images/logo-youtube.png";
 
 class menuView extends View.View {
-    name = 'menu';
+  name = "menu";
   generateMarkup() {
     return `   
 				<div class='menu-container'>

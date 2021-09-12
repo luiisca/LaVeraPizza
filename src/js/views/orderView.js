@@ -34,8 +34,7 @@ class orderView extends View.View {
 				</div>
 			</form>
 			<div
-			id="map"
-			style="width: 1500px; height: 600px; border: 5px solid black"></div>
+			id="map" class="order__map"></div>
 			<div id="content">
 				<div class="topContent">
 					<!-- <img src="drive_black.png" alt="" /> -->

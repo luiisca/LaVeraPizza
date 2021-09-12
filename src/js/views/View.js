@@ -39,18 +39,19 @@ export class View {
     });
   }
 
-  scrollTop() {
-    scrollTo(0, 0);
-  }
-
   #updateUrl() {
     window.location.hash = this.name;
   }
 
   // Scroll customization
-  // changeScrollBarTheme(theme) {
-
-  // }
+  changeScrollBarTheme(theme) {
+    return OverlayScrollbars(document.querySelector("body"), {
+      className: `os-theme-${theme}`,
+      scrollbars: {
+        autoHide: "scroll",
+      },
+    });
+  }
 }
 
 export const viewInstance = new View();
