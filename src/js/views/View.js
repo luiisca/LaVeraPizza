@@ -35,6 +35,7 @@ export class View {
     this.body.addEventListener("click", function (e) {
       btnsArray.forEach((btn, i) => {
         if (e.target?.closest(btn)) handlers[i]();
+        else return;
       });
     });
   }

@@ -38,7 +38,7 @@ class orderView extends View.View {
 			id="map" class="order__map"></div>
 			<div id="content">
 				<div class="topContent">
-					<img src=${mapsCar} alt="" /> 
+					<img src=${mapsCar} style="position:absolute; top: -1000px;" alt="" /> 
 					<p class="duration"></p>
 				</div>
 				<p class="distance"></p>

@@ -28,7 +28,6 @@ const animateScroll = function () {
   );
 
   const elRect = scrollElem.getBoundingClientRect();
-  // console.log(elRect);
   const elMiddHeight = elRect.height / 2;
   const newTop = elRect.y + elMiddHeight;
   const rotationPerPixel = 5 / elMiddHeight;
@@ -50,7 +49,6 @@ const animateScroll = function () {
   ) {
     const totalRotation = scrolledAmountSubstractionGuard() * rotationPerPixel;
     accRotation += -totalRotation;
-    // console.log(accRotation);
     const scrolElemAnimation = scrollElem.animate(
       [{ transform: `rotate(${accRotation}deg)` }],
       {
@@ -69,6 +67,7 @@ const animateScroll = function () {
 };
 
 const controlHomeView = function () {
+  model.state.onView = true;
   homeView.render();
   View.viewInstance.changeScrollBarTheme("light").scroll({ y: "0" });
   document.addEventListener(
@@ -82,23 +81,29 @@ const controlHomeView = function () {
   );
 };
 
-const controlOrderView = function () {
-  orderView.render();
-  updateBtns.updateLogoBtn(controlHomeView);
-  model.initMap();
-  View.viewInstance.changeScrollBarTheme("dark").scroll({ y: "0" });
-  document.removeEventListener(
-    "scroll",
-    animateScroll,
-    {
-      capture: true,
-      pasive: true,
-    },
-    false
-  );
+const controlOrderView = async function () {
+  model.state.onView = true;
+  try {
+    orderView.render();
+    updateBtns.updateLogoBtn(controlHomeView);
+    await model.initMap();
+    View.viewInstance.changeScrollBarTheme("dark").scroll({ y: "0" });
+    document.removeEventListener(
+      "scroll",
+      animateScroll,
+      {
+        capture: true,
+        pasive: true,
+      },
+      false
+    );
+  } catch (err) {
+    console.error(err, "controlOrderView");
+  }
 };
 
 const controlMenuView = function () {
+  model.state.onView = true;
   // View.viewInstance.scrollTop();
   menuView.render();
   updateBtns.updateLogoBtn(controlHomeView);
@@ -116,6 +121,7 @@ const controlMenuView = function () {
 };
 
 const controlAboutView = function () {
+  model.state.onView = true;
   aboutView.render();
   View.viewInstance.changeScrollBarTheme("light").scroll({ y: "0" });
   // View.viewInstance.scrollTop(View.viewInstance.changeScrollBarTheme("dark"));
@@ -133,9 +139,9 @@ const controlAboutView = function () {
 };
 
 const controlViews = [controlOrderView, controlMenuView, controlAboutView];
-console.log(View.viewInstance, aboutView);
 
 const init = function () {
+  model.state.onView = true;
   View.viewInstance.mainBtnHandlers(controlViews);
   hamMenuView.addHandlerCloseHamMenu();
   View.viewInstance.changeScrollBarTheme("light");
@@ -195,6 +201,7 @@ const views = new Map([
 
 ["load", "hashchange"].forEach((event) => {
   window.addEventListener(event, function () {
+    if (model.state.onView) return;
     const id = window.location.hash.slice(1);
     views.forEach((key, fn) => {
       // Smart URL feature
@@ -203,7 +210,6 @@ const views = new Map([
       //make it string and compare with the key, if are equal, load the related controlView function
 
       if (key === id) fn();
-      console.log(id === undefined, id);
       if (id === "") controlHomeView();
     });
     // View.viewInstance.scrollTop();
