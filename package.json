@@ -17,11 +17,10 @@
   },
   "homepage": "https://github.com/LuisCadillo/The-Vera-Pizza#readme",
   "dependencies": {
-    "core-js": "^3.15.1",
+    "core-js": "^3.17.3",
     "overlayscrollbars": "^1.13.1",
-    "prettier": "^2.3.2",
-    "regenerator-runtime": "^0.13.7",
-    "smooth-scrollbar": "^8.6.3"
+    "regenerator-runtime": "^0.13.9",
+    "ue-scroll-js": "^2.0.2"
   },
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",

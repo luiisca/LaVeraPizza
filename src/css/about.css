@@ -69,9 +69,9 @@
   margin-bottom: 25px;
 }
 .history-container p {
-  font-size: clamp(16px, 2vw, 18px);
-  font-weight: 500;
-  font-family: "Abhaya Libre", Georgia, "Times New Roman", serif;
+  font-size: clamp(16px, 2vw, 20px);
+  font-family: "Satoshi-Regular";
+  font-weight: 100;
   line-height: 28px;
 }
 

@@ -1,0 +1,27 @@
+.scrollToTopButton {
+  background-color: #f87223;
+  border-radius: 50%;
+  line-height: 48px;
+  height: 50px;
+  width: 50px;
+  position: fixed;
+  bottom: clamp(10px, 10%, 30px);
+  right: clamp(10px, 10%, 30px);
+  transition: all 0.5s ease;
+  transform: translateY(100px);
+  opacity: 0;
+  z-index: 1;
+  border: none;
+}
+.scrollToTopButton img {
+  /* height: 100%; */
+  width: 60%;
+}
+
+.showed {
+  transform: translateY(0);
+  opacity: 1;
+}
+.showed:hover {
+  transform: scale(1.1);
+}

@@ -1,6 +1,10 @@
+import * as model from "../model.js";
+import OverlayScrollbars from "overlayscrollbars";
 export class View {
   body = document.querySelector("body");
   parentEl = document.querySelector("main");
+  rootElement = document.documentElement;
+  scrollbar;
 
   render() {
     this.#removeSections();
@@ -44,14 +48,34 @@ export class View {
     window.location.hash = this.name;
   }
 
-  // Scroll customization
+  // Scrollbar customization
   changeScrollBarTheme(theme) {
-    return OverlayScrollbars(document.querySelector("body"), {
+    model.state.scrollbar = OverlayScrollbars(document.querySelector("body"), {
       className: `os-theme-${theme}`,
       scrollbars: {
         autoHide: "scroll",
       },
     });
+    return model.state.scrollbar;
+  }
+
+  // Scrolltotop Btn
+  addScrollToTopBtn() {
+    const scrollToTopBtn = document.querySelector(".scrollToTopButton");
+    const target = document.querySelector(".footer-section");
+    const callback = function (entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) scrollToTopBtn.classList.add("showed");
+        else scrollToTopBtn.classList.remove("showed");
+      });
+    };
+
+    const observer = new IntersectionObserver(callback);
+    observer.observe(target);
+    const scrollToTop = function () {
+      model.state.scrollbar.scroll({ y: "0" });
+    };
+    scrollToTopBtn.addEventListener("click", scrollToTop);
   }
 }
 

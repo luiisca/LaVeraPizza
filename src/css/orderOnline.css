@@ -22,10 +22,12 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+.order-container__background {
+  width: 100vw;
+  height: 100vh;
 }
 .clickable-log {
   position: absolute;
@@ -87,15 +89,14 @@ textarea {
   font-size: clamp(14px, 3em, 16px);
   font-weight: 400;
   outline: none;
+  resize: vertical;
 }
 
 .order-container .order__map {
   height: clamp(200px, 50vh, 740px);
   width: clamp(288px, 80vw, 1080px);
-  border: var(--blue) solid 2px;
-  box-shadow: 7px 10px 19px -6px rgba(40, 51, 65, 0.53);
+  box-shadow: 3px 3px 13px -6px rgb(40 51 65 / 53%);
 }
-
 @media (min-width: 280px) and (orientation: portrait) {
   .order__form input {
     width: 100%;
@@ -125,12 +126,17 @@ textarea {
   .order-container .order__form {
     max-width: 510px;
     min-height: 400px;
-    align-self: flex-end;
   }
 }
 
 @media (min-width: 1700px) and (orientation: landscape) {
   .order-container {
-    padding-top: clamp(200px, 15vh, 240px);
+    padding-top: clamp(200px, 23vh, 300px);
+  }
+}
+@media (min-width: 1790px) and (orientation: landscape) {
+  .order-container {
+    min-height: 80vh;
+    padding-bottom: 0;
   }
 }

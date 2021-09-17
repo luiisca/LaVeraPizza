@@ -42,6 +42,7 @@ import instagramIcon from "../../Images/instagram.png";
 import laptopIcon from "../../Images/laptop-icon.png";
 import youtubeIcon from "../../Images/logo-youtube.png";
 import rightIcon from "../../Images/right-icon.png";
+import whiteArrow from "../../Images/arrow-white.png";
 
 class HomeView extends View.View {
   name = "home";
@@ -53,9 +54,9 @@ class HomeView extends View.View {
                 <img class="cover-portrait-img background-img" src=${coverPortrait} alt="">
                 <img class="logo" src=${logo} alt="">
                 <div class="title-section__element">
-                    <h1>LA VERA <br><span>PIZZA</span></h1> <!-- Add this breakpoint with JS at certain query --> 
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur a aliquid dicta? Consectetur repudiandae ex dignissimos quaerat minima officia earum soluta nisi deserunt quam, atque repellat, saepe, id autem?</p>
-                    <button class="order-button">Order Online</button>
+                    <h1>LA VERA <br><span>PIZZA</span></h1>
+                    <p>Bienvenido! somos una Pizzeria - Trattoria, donde encontrarás deliciosas pizzas, pan al ajo, lasañas y pastas. A que esperas para hacer tu orden</p>
+                    <button class="order-button">ORDENAR</button>
                 </div>
             </div>
         </section>
@@ -69,43 +70,43 @@ class HomeView extends View.View {
                 </div>
                 <div class="menu-section__grid">
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Americana</div>
                         <img src=${recipe1} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Hawaiana</div>
                         <img src=${recipe2} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Chorizo</div>
                         <img src=${recipe3} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Pepperoni</div>
                         <img src=${recipe4} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Al olivo</div>
                         <img src=${recipe6} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Ranchera</div>
                         <img src=${recipe7} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Bolognesa</div>
                         <img src=${recipe8} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Tropical</div>
                         <img src=${recipe9} alt="">
                     </div>
                     <div class="grid-images-container">
-                        <div>Lorem</div>
+                        <div>Carnivora</div>
                         <img src=${recipe14} alt="">
                     </div>
                 </div>
-                <button class="menu-button">Full Menu</button>
+                <button class="menu-button">Menú Completo</button>
             </div>
         </section>
         <section class="offers-section">
@@ -113,12 +114,12 @@ class HomeView extends View.View {
             <div class="offers-section__container">
                 <img src=${offer} alt="">
                 <div class="offer-section__info">
-                    <p class="title">THIS WEEK'S SUPER SPECIAL OFFER</p>
+                    <p class="title">OFERTAS ESPECIALES DE ESTA SEMANA</p>
                     <div>
                         <div class="offer">
-                            <p>BUY 2 GET 1 FREE</p>
+                            <p>ORDENA 2 OBTEN 1 GRATIS</p>
                         </div>
-                        <button class="order-button">ORDER</button>
+                        <button class="order-button">ORDENAR</button>
                     </div>
                 </div>
             </div>
@@ -126,28 +127,28 @@ class HomeView extends View.View {
         <section class="order-info-section">
             <img class="background-img" src=${backTexture} alt="">
             <div class="order-info-section__info">
-                <p class="order-info__title">BAKED TO ORDER</p>
+                <p class="order-info__title">HORNEADO A LA ORDEN</p>
                 <div class="order-info__details">
                     <div class="info-container">
                         <div class="img-container">
                             <img class="filter-white" src=${laptopIcon} alt="">
                         </div>
-                        <p class="info-container__title">ORDER ONLINE</p>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit</p>
+                        <p class="info-container__title"><span class="order-process-number">1</span>PIDELA EN LINEA</p>
+                        <p>Tu próxima orden a un par de clicks</p>
                     </div>
                     <div class="info-container">
                         <div class="img-container">
                             <img class="filter-white" src=${clockIcon} alt="">
                         </div>
-                        <p class="info-container__title">BAKED ORDER</p>
-                        <p>Nihil eius perspiciatis ipsa incidunt blanditiis</p>
-                    </div>
+                        <p class="info-container__title"><span class="order-process-number">2</span>ORDEN HORNEADA</p>
+                        <p>Orden horneada y lista para entregar</p>
+                        </div>
                     <div class="info-container">
                         <div class="img-container">
                             <img class="filter-white" src=${rightIcon} alt="">
                         </div>
-                        <p class="info-container__title">FREE DELIVERY</p>
-                        <p>Laudantium, inventore illo</p>
+                        <p class="info-container__title"><span class="order-process-number">3</span>ENVIO GRATIS</p>
+                        <p>Disfruta de tu orden sin importar donde</p>
                     </div>
                 </div>
             </div>
@@ -156,16 +157,26 @@ class HomeView extends View.View {
             <img class="background-img" src=${slateTexture} alt="">
             <div class="about-section__overview">
                 <div class="about-section__history-container">
-                    <p class="history-container__title">SINCE 1987</p>
-                    <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur ipsa, nostrum nobis soluta tempore itaque sit quisquam labore eos quasi saepe impedit deserunt! Beatae nisi fugiat harum quod incidunt officiis.
-                    Ratione, cupiditate? Culpa laudantium, unde laboriosam earum sunt nemo assumenda omnis repellendus, qui facilis et est veniam quo mollitia magni ea alias dolor cumque consectetur sequi saepe explicabo officia labore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo ipsam illo exercitationem architecto cum qui consectetur nemo perspiciatis, illum itaque?Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe, beatae at eius sunt, obcaecati laborum consequatur dolore sint aperiam perspiciatis numquam doloribus, soluta veritatis nemo cumque incidunt omnis amet? Rem!</article>
+                    <p class="history-container__title">DESDE 1987</p>
+                    <article>¿Sabías que la pizza nació como una idea creativa llena de innovación?, pero no siempre la receta de este emblemático plato fue tan fortuito como adherir salsa de tomate a la parte superior de un pan plano.
+
+                        En el siglo XVI y tras haber sido traído a Europa después  del descubrimiento de América, el tomate no se consumía bajo la creencia de que era venenoso, al igual que otras frutas por su color rojo.
+                        
+                        Sin embargo, a finales del siglo XVIII en las áreas pobres los alrededores de Nápoles  alguien tuvo la iniciativa de adherir tomate a un pan plano elaborado con levadura, dándole origen a esta deliciosa fusión de sabores que hoy conocemos como pizza.
+                        
+                        Así pues, la pizza fue ganando popularidad como una especialidad local que atraía a miles de foráneos a probar esta deliciosa  iniciativa culinaria.
+                        
+                        En 1830 la pizza fue vendida por primera vez en establecimientos al aire libre, así como por vendedores callejeros tanto así que se dice que la antigua pizzería Port’Alba en Nápoles, es considerada como la primera pizzería del mundo. Pronto el negocio se expandió en un modelo de restaurante con mesas y camareros, estructura que perdura hasta nuestros días.
+                    
+                        Ven a La Vera Pizza y descubre la nueva forma de comer pizza, lasagna y pastas en Nuevo Chimbote.
+                    </article>
                 </div>
                 <img class="right-img" src=${about}>
                 <div class="left-img-container">
                     <img class="left-img" src=${aboutBottom}>
                 </div>
                 <div class="about-overview__phrases-container">
-                    <div><p>"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique inventore repellat accusamus voluptates facilis quia nostrum officiis ea doloremque?"</p></div>
+                    <div><p>«Los buenos momentos son como las pizzas. Siempre saben mejor si los compartes con amigos»</p></div>
                     <div><p>"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique inventore repellat accusamus voluptates facilis quia nostrum officiis ea doloremque?"</p></div>
                 </div>
                 <button class="more-info-button">Learn More</button>
@@ -174,10 +185,10 @@ class HomeView extends View.View {
         <section class="order-buttons-section">
             <img class="background-img" src=${dineWithUs} alt="">
             <div class="order__flex-container">
-                <h2>DINE WITH US</h2>
-                <p class="contact-number">(56)987-1234</p>
-                <button class="order-button">Order Now</button>
-                <button class="order-button button-orange">Book a Table</button>
+                <h2>CENA CON NOSOTROS</h2>
+                <p class="contact-number">(043) 603-908</p>
+                <button class="order-button">Ordenar ahora</button>
+                <button class="order-button button-orange">Separar una mesa</button>
             </div>
         </section>
         <section class="footer-section">
@@ -185,23 +196,24 @@ class HomeView extends View.View {
                 <div class="footer__flex-container">
                     <div class="contact-info__flex-container left-content">
                         <div class="up-content">
-                            <h3>CONTACT</h3>
-                            <p class="contact-number">(56) 987-1234</p>
+                            <h3>CONTACTO</h3>
+                            <p class="contact-number">(043) 603-908</p>
                         </div>
                         <div class="down-content footer__icons">
-                            <button class="footer__facebook-icon"><img class="filter-white" src=${facebookIcon} alt=""></button>
-                            <button class="footer__youtube-icon .filter-white "><img src=${youtubeIcon} class="filter-white" alt=""></button>
-                            <button class="footer__instagram-icon"><img class="filter-white" src=${instagramIcon} alt=""></button>
+                        <button><a class="footer__facebook-icon"  target="_blank" rel="noreferrer" href="https://m.facebook.com/Laverapizzatrattoria/?locale2=es_LA"><img class="filter-white" src=${facebookIcon} alt=""></a></button>
+                        <button><a class="footer__youtube-icon .filter-white "><img src=${youtubeIcon} class="filter-white" alt=""></a></button>
+                        <button><a class="footer__instagram-icon"><img class="filter-white" src=${instagramIcon} alt=""></a></button>
                         </div>
                     </div>
                     <div class="contact-info__flex-container right-content">
-                        <h3>OPENING HOURS</h3>
-                        <p>Everyday, 11am - 11pm</p>
-                        <p>info@theverapizza.com</p>
+                    <h3>HORARIO</h3>
+                        <p>Todos los días!, 11am - 11pm</p>
+                        <p>info@laverapizza.com</p>
                     </div>
                 </div>
-            </footer>    
+            </footer> 
         </section>
+    <button class="scrollToTopButton"><img src=${whiteArrow} alt=""></button>
 		`;
   }
 }

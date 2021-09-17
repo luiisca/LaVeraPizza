@@ -1,3 +1,5 @@
+@import url("satoshi.css");
+@import url("general-sans.css");
 :root {
   --black: #070505;
   --orange: #f87223;
@@ -14,10 +16,61 @@
   margin: 0;
   box-sizing: border-box;
 }
+button {
+  border: none;
+  cursor: pointer;
+}
+/* hover effects */
+.order-button,
+.menu-button {
+  border-radius: 3px;
+  transition: 0.2s transform ease-in-out;
+  will-change: transform;
+  z-index: 0;
+  overflow: hidden;
+}
+.order-button::after {
+  background-color: var(--orange);
+}
+.menu-button::after {
+  background-color: var(--yellow);
+}
+.order-button::after,
+.menu-button::after {
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%, 0) rotate(10deg);
+  transform-origin: top left;
+  transition: 0.2s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+}
+.order-button:hover::after,
+.menu-button:hover::after {
+  transform: translate(0, 0);
+}
+.order-button:hover,
+.menu-button:hover {
+  border-radius: 3px;
+  border: 2px solid transparent;
+  transform: scale(1.05);
+  will-change: transform;
+}
+.order-button:active,
+.menu-button:active {
+  transform: scale(1.05);
+}
+
 body {
   color: white;
-  font-family: "Open Sans", sans-serif;
-  scroll-behavior: smooth;
+  font-family: "Satoshi-Regular";
+  overflow-x: hidden; /* I know, lazy solution, but I'm tirrred  */
 }
 a {
   color: inherit;
@@ -66,6 +119,7 @@ a {
 /* SECTIONS */
 /* .title-section__container */
 .title-section__container {
+  align-items: flex-start;
   position: relative;
   overflow: hidden;
   padding: clamp(10%, 20%, 30px);
@@ -97,7 +151,6 @@ a {
   text-align: left;
 }
 .title-section__container p {
-  font-family: "Abhaya Libre", serif;
   width: clamp(60%, 90%, 300px);
   margin-bottom: 10%;
   font-weight: 500;
@@ -106,12 +159,22 @@ a {
   /* width: 224px;
   height: 27px; */
   padding: 20px 60px;
+  margin-top: clamp(5px, 2%, 10px);
+  position: absolute;
+}
+.order-button,
+.menu-button {
+  font-family: "Satoshi-Regular";
+  border-radius: 3px;
+  letter-spacing: 2.3px;
+  background-color: var(--orange);
+  color: white;
+}
+.menu-button {
+  background-color: var(--yellow);
 }
 .title-section__container .order-button,
 .order-button {
-  background-color: var(--orange);
-  border: none;
-  color: white;
   font-size: clamp(2vw, 3.5vw, 16px);
   font-weight: 600;
 }
@@ -150,7 +213,7 @@ a {
   font-family: "Montserrat", Helvetica, Arial, Lucida, sans-serif;
 }
 .order-info-section .order-info-section__info img {
-  width: clamp(30px, 2vw, 80px);
+  width: clamp(30px, 2vw, 45px);
 }
 .order-info-section__info .order-info__title {
   font-weight: 700;
@@ -173,15 +236,29 @@ a {
   align-items: center;
   margin: 3vh 0 3vw 0;
 }
+.order-info__details .info-container {
+  position: relative;
+}
 .order-info__details .info-container__title {
   margin-bottom: 5%;
   font-weight: 700;
   font-size: 16px;
 }
+
 .order-info__details .info-container :nth-child(3) {
   font-weight: 500;
   color: rgb(255 255 255 / 70%);
   font-size: clamp(14px, 1vw, 16px);
+}
+
+.order-process-number {
+  font-family: Courier New, Courier, monospace;
+  font-size: 5em;
+  left: -28px;
+  opacity: 0.5;
+  position: absolute;
+  top: 35%;
+  transform: rotate(7deg);
 }
 /* .about-section */
 .about-section {
@@ -204,6 +281,8 @@ a {
   padding: 12%;
   padding-left: 5%;
   padding-bottom: 150px;
+  position: relative;
+  overflow: hidden;
 }
 .about-section__history-container .history-container__title {
   font-family: "Poiret One", cursive;
@@ -214,10 +293,24 @@ a {
   margin-bottom: 5%;
 }
 .about-section__history-container article {
-  font-family: "Abhaya Libre", serif;
   line-height: clamp(3vh, 3%, 10px);
   font-size: clamp(2vw, 2.5em, 16px);
   line-height: 1.8em;
+  max-height: 500px;
+}
+.about-section__history-container article::after {
+  bottom: 0;
+  left: 0;
+  content: "";
+  height: 160px;
+  position: absolute;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(40, 51, 65, 0.6811099439775911) 0%,
+    rgba(40, 51, 65, 0.8687850140056023) 39%,
+    rgba(40, 51, 65, 1) 100%
+  );
 }
 
 .about-section .right-img {
@@ -230,6 +323,7 @@ a {
 }
 
 .about-section .more-info-button {
+  font-family: "Satoshi-Regular";
   width: 100%;
   max-width: 180px;
   justify-self: end;
@@ -284,19 +378,21 @@ a {
   z-index: -1;
 }
 .order__flex-container {
-  /* width: 100%; */
   margin: 15%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: clamp(10px, 4vh, 30px);
   flex-direction: column;
+  min-height: 60vh;
+  max-height: 400px;
 }
 .order__flex-container h2 {
   font-family: "Poiret One", display;
   font-weight: 700;
   font-size: clamp(3vw, 8vw, 50px);
   letter-spacing: 0.1em;
+  text-align: center;
 }
 .order__flex-container p {
   color: var(--yellow);
@@ -306,10 +402,11 @@ a {
   line-height: 1.4em;
 }
 .order__flex-container button {
-  padding: 10% 20% 10% 20%;
   border: none;
+  position: relative;
+  padding: 7% 20% 10% 20%;
   outline: none;
-  font-size: clamp(1em, 4vw, 16px);
+  font-size: clamp(1em, 4vw, 20px);
   font-weight: 700;
   background-color: white;
   color: black;
@@ -364,7 +461,7 @@ footer h3 {
   color: var(--orange);
 }
 footer .left-content {
-  gap: clamp(10px, 8vh, 30px);
+  gap: clamp(10px, 8vh, 24px);
 }
 footer .footer__icons button {
   background-color: rgb(0 0 0 / 0%);
@@ -379,6 +476,13 @@ footer .footer__icons button img {
   width: 100%;
   height: 100%;
 }
+footer .filter-white {
+  transition: 0.2s transform ease-out;
+}
+footer .filter-white:hover {
+  transform: scale(1.4);
+}
+
 /* MEDIA QUERIES */
 /* General */
 @media (min-width: 280px) {
@@ -429,10 +533,8 @@ footer .footer__icons button img {
     align-self: flex-end;
     margin-top: 10%;
     padding: 8%;
-    background-color: var(--yellow);
     width: clamp(50%, 70%, 250px);
     height: clamp(5%, 14%, 90px);
-    border: none;
     font-size: clamp(1vw, 5em, 16px);
     font-weight: 600;
   }
@@ -489,6 +591,9 @@ footer .footer__icons button img {
     display: flex;
     flex-direction: column;
   }
+  .offer-section__info button {
+    position: absolute;
+  }
 
   .offers-section .offer-section__info p {
     font-weight: 700;
@@ -524,6 +629,7 @@ footer .footer__icons button img {
     width: clamp(50%, 65%, 150px);
     height: clamp(3vh, 13vh, 50px);
     align-self: flex-end;
+    bottom: -5px;
   }
 
   /* order info section */
@@ -669,6 +775,7 @@ footer .footer__icons button img {
   }
   .offers-section .offer-section__info .offer {
     padding: clamp(10%, 3vh, 50px);
+    padding-top: 2%;
     height: clamp(200px, 100%, 700px);
     width: clamp(200px, 100%, 400px);
   }
@@ -757,13 +864,16 @@ footer .footer__icons button img {
   .order-info__details p {
     width: clamp(160px, 25vw, 300px);
   }
+  .order-process-number {
+    top: 43%;
+  }
 
   /* footer */
   footer {
-    padding: clamp(50px, 15%, 100px) 10%;
+    padding: clamp(50px, 15%, 50px) 10%;
   }
   footer h3 {
-    color: white;
+    color: rgb(181, 177, 177);
   }
   footer .footer__flex-container {
     flex-direction: row;
@@ -800,7 +910,7 @@ footer .footer__icons button img {
     height: 60%;
   }
   .offers-section .offer-section__info .offer p {
-    width: 50%;
+    /* width: 50%; */
     font-size: clamp(20px, 5em, 40px);
   }
 
@@ -964,6 +1074,11 @@ footer .footer__icons button img {
   }
 }
 @media (min-width: 1000px) {
+  .order-button,
+  .menu-button {
+    border: white solid 1px;
+    background-color: transparent;
+  }
   /* title section */
   .title-section__container p {
     width: clamp(50%, 90%, 260px);
@@ -1005,6 +1120,18 @@ footer .footer__icons button img {
 
   .offers-section .offer-section__info .title {
     font-size: clamp(15px, 2em, 30px);
+  }
+
+  /* Order info section */
+  .order-info__details .img-container {
+    margin-bottom: 2.5vh;
+  }
+  .order-process-number {
+    top: 43%;
+  }
+  .order__flex-container {
+    min-height: 80vh;
+    max-height: 700px;
   }
 }
 
@@ -1076,7 +1203,7 @@ footer .footer__icons button img {
     font-size: clamp(50px, 10vw, 100px);
   }
   .order__flex-container button {
-    padding: 4% 27%;
+    padding: 4% 25%;
   }
 }
 
@@ -1095,7 +1222,6 @@ footer .footer__icons button img {
   /* title section */
   .title-section__container {
     display: flex;
-    align-items: center;
     height: 100vh;
   }
   .title-section__element h1 {

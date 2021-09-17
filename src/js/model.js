@@ -1,13 +1,15 @@
 "use strict";
 export const state = {
   onView: false,
+  scrollbar: {},
+  mapsCarIcon: HTMLElement,
   // map: {}
 };
 let map;
 
 const getUsersLocation = function () {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.watchPosition(
       (pos) => {
         const { latitude: lat, longitude: lng } = pos.coords;
         resolve({ lat, lng });

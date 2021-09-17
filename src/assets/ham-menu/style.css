@@ -45,7 +45,7 @@ main section {
 
 .nav-trigger span::before,
 .nav-trigger span::after {
-  content: '';
+  content: "";
   top: 0;
   left: 0;
   transition: background 0.3s, transform 0.3s;
@@ -159,6 +159,11 @@ main section {
   height: initial;
   position: inherit;
   border-radius: 0;
+  border: none;
+  transition: 0.2s transform ease-out;
+}
+.nav a:hover {
+  transform: scale(1.05);
 }
 
 .nav-open .nav a {

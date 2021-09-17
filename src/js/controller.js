@@ -1,22 +1,19 @@
 "use strict";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import OverlayScrollbars from "overlayscrollbars";
 import "../css/OverlayScrollbars.css";
-
-import homeView from "./views/homeView.js";
-import orderView from "./views/orderView.js";
-import menuView from "./views/menuView.js";
-import aboutView from "./views/aboutView.js";
-import * as View from "./views/View.js";
 import updateBtns from "./helpers.js";
 import * as model from "./model.js";
-
+import aboutView from "./views/aboutView.js";
 import hamMenuView from "./views/hamMenuView.js";
+import homeView from "./views/homeView.js";
+import menuView from "./views/menuView.js";
+import orderView from "./views/orderView.js";
+import * as View from "./views/View.js";
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 const animateScroll = function () {
   logDebounce("debounced");
@@ -79,15 +76,12 @@ const controlHomeView = function () {
     },
     false
   );
+  View.viewInstance.addScrollToTopBtn();
 };
 
 const controlOrderView = async function () {
   model.state.onView = true;
   try {
-    orderView.render();
-    updateBtns.updateLogoBtn(controlHomeView);
-    await model.initMap();
-    View.viewInstance.changeScrollBarTheme("dark").scroll({ y: "0" });
     document.removeEventListener(
       "scroll",
       animateScroll,
@@ -97,18 +91,41 @@ const controlOrderView = async function () {
       },
       false
     );
+    orderView.render();
+    orderView.newOrderSectionBottom();
+    updateBtns.updateLogoBtn(controlHomeView);
+    model.state.mapsCarIcon = document.querySelector(".carIconHidden");
+    await model.initMap();
+    model.state.mapsCarIcon.classList.add("carIconVisible");
+
+    View.viewInstance.changeScrollBarTheme("dark").scroll({ y: "0" });
   } catch (err) {
     console.error(err, "controlOrderView");
   }
+  // View.viewInstance.addScrollToTopBtn();
 };
 
 const controlMenuView = function () {
+  document.removeEventListener(
+    "scroll",
+    animateScroll,
+    {
+      capture: true,
+      pasive: true,
+    },
+    false
+  );
   model.state.onView = true;
   // View.viewInstance.scrollTop();
   menuView.render();
   updateBtns.updateLogoBtn(controlHomeView);
 
   View.viewInstance.changeScrollBarTheme("light").scroll({ y: "0" });
+
+  View.viewInstance.addScrollToTopBtn();
+};
+
+const controlAboutView = function () {
   document.removeEventListener(
     "scroll",
     animateScroll,
@@ -118,24 +135,14 @@ const controlMenuView = function () {
     },
     false
   );
-};
-
-const controlAboutView = function () {
   model.state.onView = true;
   aboutView.render();
   View.viewInstance.changeScrollBarTheme("light").scroll({ y: "0" });
   // View.viewInstance.scrollTop(View.viewInstance.changeScrollBarTheme("dark"));
   updateBtns.updateLogoBtn(controlHomeView);
   // View.viewInstance.changeScrollBarTheme("light");
-  document.removeEventListener(
-    "scroll",
-    animateScroll,
-    {
-      capture: true,
-      pasive: true,
-    },
-    false
-  );
+
+  View.viewInstance.addScrollToTopBtn();
 };
 
 const controlViews = [controlOrderView, controlMenuView, controlAboutView];
@@ -144,17 +151,6 @@ const init = function () {
   model.state.onView = true;
   View.viewInstance.mainBtnHandlers(controlViews);
   hamMenuView.addHandlerCloseHamMenu();
-  View.viewInstance.changeScrollBarTheme("light");
-
-  document.addEventListener(
-    "scroll",
-    animateScroll,
-    {
-      capture: true,
-      pasive: true,
-    },
-    false
-  );
 };
 init();
 
@@ -188,41 +184,30 @@ const logDebounce = debounce(function (msg) {
   console.log(msg);
 });
 
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-// ON load identify the hash and based on that render the corresponding view.
+// render on load and haschange feature
 const views = new Map([
   [controlOrderView, "order"],
   [controlMenuView, "menu"],
   [controlAboutView, "about"],
   [controlHomeView, "home"],
 ]);
+console.log(model.state.onView);
 
-["load", "hashchange"].forEach((event) => {
-  window.addEventListener(event, function () {
-    if (model.state.onView) return;
-    const id = window.location.hash.slice(1);
-    views.forEach((key, fn) => {
-      // Smart URL feature
-      //push all the elements on the user's array
-      //make a new array with only the repetited elements
-      //make it string and compare with the key, if are equal, load the related controlView function
+const loopViews = function () {
+  if (model.state.onView) return;
+  const id = window.location.hash.slice(1);
+  views.forEach((key, fn) => {
+    // Smart URL feature
+    //push all the elements on the user's array
+    //make a new array with only the repetited elements
+    //make it string and compare with the key, if are equal, load the related controlView function
 
-      if (key === id) fn();
-      if (id === "") controlHomeView();
-    });
-    // View.viewInstance.scrollTop();
+    if (key === id) fn();
+    if (id === "") controlHomeView();
   });
+};
+window.addEventListener("hashchange", () => loopViews());
+window.addEventListener("load", () => {
+  model.state.onView = false;
+  loopViews();
 });
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-// smooth scroll
-
-// import Scrollbar from "smooth-scrollbar";
-
-// Scrollbar.init(document.querySelector("body"), {
-//   dumping: 0.08,
-//   alwaysShowTracks: false,
-// });
