@@ -1,0 +1,1 @@
+const navTrigger=document.querySelector(".nav-trigger"),body=document.querySelector("body"),toggleNavigation=function(e){e.preventDefault(),body.classList.toggle("nav-open")};navTrigger.addEventListener("click",toggleNavigation);
