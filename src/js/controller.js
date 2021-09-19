@@ -92,11 +92,13 @@ const controlOrderView = async function () {
       false
     );
     orderView.render();
-    orderView.newOrderSectionBottom();
     updateBtns.updateLogoBtn(controlHomeView);
+    model.state.mapEl = View.viewInstance.selectDOMEl("#map");
+    model.state.popupContent = View.viewInstance.selectDOMEl("#content");
     model.state.mapsCarIcon = document.querySelector(".carIconHidden");
     await model.initMap();
     model.state.mapsCarIcon.classList.add("carIconVisible");
+    orderView.newOrderSectionBottom();
 
     View.viewInstance.changeScrollBarTheme("dark").scroll({ y: "0" });
   } catch (err) {
@@ -206,7 +208,7 @@ const loopViews = function () {
     if (id === "") controlHomeView();
   });
 };
-window.addEventListener("hashchange", () => loopViews());
+// window.addEventListener("hashchange", () => loopViews());
 window.addEventListener("load", () => {
   model.state.onView = false;
   loopViews();

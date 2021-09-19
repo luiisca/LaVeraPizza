@@ -3,9 +3,23 @@ export const state = {
   onView: false,
   scrollbar: {},
   mapsCarIcon: HTMLElement,
-  // map: {}
+
+  usersLocation: {},
+  mapInstance: {},
+
+  directionsService: {},
+  directionsRenderer: {},
+
+  popup: {},
+  route: {
+    result: {},
+    status: "",
+    travelDistance: "",
+    travelDuration: "",
+    middleStepCoors: {},
+  },
+  mapEl: HTMLElement,
 };
-let map;
 
 const getUsersLocation = function () {
   return new Promise((resolve, reject) => {
@@ -25,20 +39,18 @@ const getUsersLocation = function () {
     );
   });
 };
-let sent = false;
 export const initMap = async function () {
   try {
-    const usersLocation = await getUsersLocation();
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: usersLocation,
+    state.usersLocation = await getUsersLocation();
+
+    state.mapInstance = new google.maps.Map(state.mapEl, {
+      center: state.usersLocation,
       zoom: 15,
     });
-    console.log(usersLocation, "1users location");
+
+    console.log(state.usersLocation, "1users location");
     console.log(map, "2map instance");
-    let popup;
-    let middleStepCoors;
-    let travelDuration;
-    let travelDistance;
+
     class Popup extends google.maps.OverlayView {
       position;
       containerDiv;
@@ -55,11 +67,11 @@ export const initMap = async function () {
         content.classList.add("popup-bubble");
         bubbleAnchor.classList.add("popup-bubble-anchor");
 
-        console.log(travelDistance, "15popup class travelDis");
-        console.log(travelDuration, "16popup class travelDur");
+        console.log(state.route.travelDistance, "15popup class travelDis");
+        console.log(state.route.travelDuration, "16popup class travelDur");
 
-        distanceSpan.textContent = `${travelDistance}`;
-        durationSpan.textContent = `${travelDuration}`;
+        distanceSpan.textContent = `${state.route.travelDistance}`;
+        durationSpan.textContent = `${state.route.travelDuration}`;
 
         bubbleAnchor.appendChild(content);
         // This zero-height div is positioned at the bottom of the tip.
@@ -106,19 +118,20 @@ export const initMap = async function () {
         console.log("20popup class draw function");
       }
     }
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
+    state.directionsService = new google.maps.DirectionsService();
+    state.directionsRenderer = new google.maps.DirectionsRenderer();
 
-    console.log(directionsService, "3initmap directionsService");
-    console.log(directionsRenderer, "4initmap  directionsRenderer");
+    console.log(state.directionsService, "3initmap directionsService");
+    console.log(state.directionsRenderer, "4initmap  directionsRenderer");
 
-    directionsRenderer.setMap(map);
+    state.directionsRenderer.setMap(state.mapInstance);
 
     const calcRoute = async function () {
       try {
         console.log("5calcroute try");
+
         const request = {
-          origin: usersLocation,
+          origin: state.usersLocation,
           destination: {
             lat: -9.122253649985707,
             lng: -78.52881618909174,
@@ -127,47 +140,60 @@ export const initMap = async function () {
         };
 
         const resolved = function (result, status) {
-          sent = true;
-          console.log(result, "6resolved function inside");
-          console.log(status, "7resolved function status outsie");
+          state.route.result = result;
+          state.route.status = status;
+          console.log(state.route.result, "6resolved function inside");
+          console.log(state.route.status, "7resolved function status outsie");
 
           // Neccesary variables to place marker on the right spot and show distance and travel duration
           const middleSteps = Math.round(
-            result.routes[0].legs[0].steps.length / 2 - 1
+            state.route.result.routes[0].legs[0].steps.length / 2 - 1
           );
           console.log(middleSteps, "8resolved function middlesteps");
-          middleStepCoors = {
-            lat: result.routes[0].legs[0].steps[middleSteps].lat_lngs[0].lat(),
-            lng: result.routes[0].legs[0].steps[middleSteps].lat_lngs[0].lng(),
+          state.route.middleStepCoors = {
+            lat: state.route.result.routes[0].legs[0].steps[
+              middleSteps
+            ].lat_lngs[0].lat(),
+            lng: state.route.result.routes[0].legs[0].steps[
+              middleSteps
+            ].lat_lngs[0].lng(),
           };
-          console.log(middleStepCoors, "9resolved function middleStepcoors");
-          travelDuration = result.routes[0].legs[0].duration.text;
-          travelDistance = result.routes[0].legs[0].distance.text;
+          console.log(
+            state.route.middleStepCoors,
+            "9resolved function middleStepcoors"
+          );
+          state.route.travelDuration =
+            state.route.result.routes[0].legs[0].duration.text;
+          state.route.travelDistance =
+            state.route.result.routes[0].legs[0].distance.text;
 
-          // Send result object to get the route automatcally rendered by directionsRenderer
-          if (status === "OK") {
-            directionsRenderer.setDirections(result);
-            console.log(status, "10resolved function status inside if");
+          // Send state.route.result object to get the route automatcally rendered by directionsRenderer
+          if (state.route.status === "OK") {
+            state.directionsRenderer.setDirections(state.route.result);
+            console.log(
+              state.route.status,
+              "10resolved function status inside if"
+            );
           }
         };
 
-        await directionsService.route(request, resolved).then(() => {
-          console.log(sent, "11inside await route function");
+        await state.directionsService.route(request, resolved).then(() => {
+          console.log("11inside await route function");
         });
       } catch (err) {
         console.error(err, "calcroute");
       }
     };
     await calcRoute();
-    const { lat, lng } = middleStepCoors;
+    const { lat, lng } = state.route.middleStepCoors;
     console.log(lat, lng, "12initmap lat,lng from middleStepCoors");
-    popup = new Popup(
+    state.popup = new Popup(
       new google.maps.LatLng(lat, lng),
-      document.getElementById("content")
+      state.popupContent
     );
-    console.log(popup, "21popup instance");
-    popup.setMap(map);
-    if (popup) return;
+    console.log(state.popup, "21popup instance");
+    state.popup.setMap(state.mapInstance);
+    if (state.popup) return;
     console.log("22did it return?");
   } catch (err) {
     console.error(err, "initmap");
